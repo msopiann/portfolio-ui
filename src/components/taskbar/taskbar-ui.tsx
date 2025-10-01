@@ -70,7 +70,7 @@ export function Taskbar() {
         >
           <div className="flex h-5 w-5 items-center justify-center">
             <Image
-              src="/icons/windows.png"
+              src="/icons/windows.webp"
               alt="Windows Icon"
               width={0}
               height={0}

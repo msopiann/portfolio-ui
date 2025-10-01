@@ -82,7 +82,7 @@ export default function Browser() {
         onEnter={(addr) => addTab(addr)}
       />
 
-      <div className="flex-1 overflow-auto bg-white p-4">
+      <div className="flex-1 overflow-auto bg-white p-4 px-4 pt-20 pb-4 sm:p-4 sm:pt-4 sm:pb-4">
         {tabs.find((t) => t.id === activeTab)?.content}
       </div>
     </div>

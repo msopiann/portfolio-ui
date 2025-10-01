@@ -18,16 +18,32 @@ export function Desktop() {
 
   return (
     <div
-      className="relative h-screen w-full overflow-hidden bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/background.webp')" }}
+      className="relative h-screen w-full overflow-hidden bg-cover bg-center bg-no-repeat p-4"
+      style={{
+        backgroundImage: "url('/background.webp')",
+        paddingBottom: "48px",
+      }}
     >
-      {DESKTOP_ICONS.map((icon) => (
-        <Icon
-          key={icon.id}
-          config={icon}
-          onDoubleClick={() => handleIconDoubleClick(icon)}
-        />
-      ))}
+      <div className="hidden sm:block">
+        {DESKTOP_ICONS.map((icon) => (
+          <Icon
+            key={icon.id}
+            config={icon}
+            onDoubleClick={() => handleIconDoubleClick(icon)}
+          />
+        ))}
+      </div>
+
+      {/* Mobile mode → grid */}
+      <div className="grid grid-cols-3 gap-4 sm:hidden">
+        {DESKTOP_ICONS.map((icon) => (
+          <Icon
+            key={icon.id}
+            config={icon}
+            onDoubleClick={() => handleIconDoubleClick(icon)}
+          />
+        ))}
+      </div>
     </div>
   );
 }

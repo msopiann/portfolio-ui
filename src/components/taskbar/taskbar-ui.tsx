@@ -61,7 +61,8 @@ export function Taskbar() {
   return (
     <div
       id="taskbar"
-      className="absolute right-0 bottom-0 left-0 z-[9999] flex h-10 items-center gap-1 border-t-2 border-white bg-[#c0c0c0] px-1"
+      className="fixed right-0 bottom-0 left-0 z-[9999] flex h-12 items-center gap-1 border-t-2 border-white bg-[#c0c0c0] px-1 sm:h-10"
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
       <div className="relative">
         <button

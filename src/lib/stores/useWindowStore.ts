@@ -36,15 +36,28 @@ export const useWindowStore = create<WindowStore>()(
         }
 
         const id = generateId();
+
+        const screenWidth =
+          typeof window !== "undefined" ? window.innerWidth : 1024;
+        const screenHeight =
+          typeof window !== "undefined" ? window.innerHeight : 768;
+
+        const marginX = screenWidth < 768 ? 20 : 100;
+        const marginY = screenHeight < 768 ? 20 : 100;
+
         const newWindow: WindowState = {
           id,
           title: config.title || "Untitled",
           appType: config.appType || "about",
           icon: config.icon,
-          x: config.x ?? 100 + state.windows.length * 30,
-          y: config.y ?? 100 + state.windows.length * 30,
-          width: config.width ?? 600,
-          height: config.height ?? 400,
+          x:
+            config.x ??
+            Math.min(marginX + state.windows.length * 30, screenWidth - 320),
+          y:
+            config.y ??
+            Math.min(marginY + state.windows.length * 30, screenHeight - 240),
+          width: Math.min(config.width ?? 600, screenWidth - 40),
+          height: Math.min(config.height ?? 400, screenHeight - 80),
           z: state.maxZ + 1,
           minimized: false,
           maximized: false,

@@ -3,7 +3,7 @@
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { DOCUMENTS } from "@/lib/data";
 
@@ -13,6 +13,12 @@ export default function PdfViewer() {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(0.8);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      setScale(0.6);
+    }
+  }, []);
 
   const resumeDoc = DOCUMENTS.find((doc) => doc.label === "Resume");
 
@@ -32,10 +38,18 @@ export default function PdfViewer() {
   };
 
   return (
-    <div className="flex h-full w-full flex-col bg-white font-sans text-sm">
+    <div className="flex h-full w-full flex-col bg-[#c0c0c0] font-[Tahoma,Arial] text-sm text-black">
       <div className="flex items-center gap-2 border-b border-gray-400 bg-[#ece9d8] px-2 py-1 text-xs">
-        <button onClick={() => setScale(scale + 0.2)}>🔍 +</button>
-        <button onClick={() => setScale(scale > 0.4 ? scale - 0.2 : scale)}>
+        <button
+          onClick={() => setScale(scale + 0.2)}
+          className="border border-gray-400 bg-[#f0f0f0] px-2 py-0.5 hover:bg-[#dcdcdc]"
+        >
+          🔍 +
+        </button>
+        <button
+          onClick={() => setScale(scale > 0.4 ? scale - 0.2 : scale)}
+          className="border border-gray-400 bg-[#f0f0f0] px-2 py-0.5 hover:bg-[#dcdcdc]"
+        >
           🔍 -
         </button>
 
@@ -72,14 +86,25 @@ export default function PdfViewer() {
         </button>
       </div>
 
-      <div className="flex flex-1 items-start justify-center overflow-auto bg-gray-100">
-        <Document
-          file={resumeDoc.file}
-          onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-          loading={<p className="p-4">Loading PDF...</p>}
-        >
-          <Page pageNumber={pageNumber} scale={scale} />
-        </Document>
+      <div className="flex flex-1 justify-center overflow-auto bg-[#a0a0a0] p-3">
+        <div className="win98-border-out bg-[#c0c0c0] shadow-[3px_3px_0_rgba(0,0,0,0.3)]">
+          <div className="win98-border-in bg-white p-3">
+            <div className="flex justify-center">
+              <Document
+                file={resumeDoc.file}
+                onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+                loading={<p className="p-4">Loading PDF...</p>}
+              >
+                <Page
+                  pageNumber={pageNumber}
+                  scale={scale}
+                  renderAnnotationLayer={false}
+                  renderTextLayer={false}
+                />
+              </Document>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

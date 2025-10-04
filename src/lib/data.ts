@@ -76,7 +76,7 @@ export const DESKTOP_ICONS: IconConfig[] = [
 export const DOCUMENTS: DocumentItem[] = [
   {
     label: "Resume",
-    file: `${cloudinaryImageUrl}/resume-muhammad-sopian_hklsb8.pdf`,
+    file: `${cloudinaryImageUrl}/Resume_MuhammadSopian_esdznd.pdf`,
   },
 ];
 
